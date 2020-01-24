@@ -12,9 +12,9 @@ import AVFoundation
 
 
 class Speaker: NSObject, AVSpeechSynthesizerDelegate {
-    var avSpeechSynthesizer: AVSpeechSynthesizer
+    var avSpeechSynthesizer: AVSpeechSynthesizer?
     override init() {
-        self.avSpeechSynthesizer = AVSpeechSynthesizer()
+//        self.avSpeechSynthesizer = AVSpeechSynthesizer()
         super.init()
 //        let speechVoices = AVSpeechSynthesisVoice.speechVoices()
 //        speechVoices.forEach { (voice) in
@@ -27,7 +27,7 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
     }
     func announce(_ exercise: Exercise) {
         self.avSpeechSynthesizer = AVSpeechSynthesizer()
-        self.avSpeechSynthesizer.delegate = self
+        self.avSpeechSynthesizer!.delegate = self
         let utterance = AVSpeechUtterance(string: exercise.label + " for \(exercise.duration) seconds")
         utterance.rate = 0.4
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
@@ -35,19 +35,19 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
 //        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.Zarvox")
         DispatchQueue.global(qos: .background).async {
             // Bren this worked to smooth out the progress display
-            self.avSpeechSynthesizer.speak(utterance)
+            self.avSpeechSynthesizer!.speak(utterance)
         }
     }
     func say(_ text: String) {
         self.avSpeechSynthesizer = AVSpeechSynthesizer()
-        self.avSpeechSynthesizer.delegate = self
+        self.avSpeechSynthesizer!.delegate = self
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = 0.4
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.daniel.premium")
         DispatchQueue.global(qos: .background).async {
             // Bren this worked to smooth out the progress display
-            self.avSpeechSynthesizer.speak(utterance)
+            self.avSpeechSynthesizer!.speak(utterance)
         }
     }
 
@@ -60,7 +60,21 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
     func playPopSound() {
         NSSound(named: "Pop")?.play()
     }
-
+    func stopSpeech() {
+        if (self.avSpeechSynthesizer != nil) {
+            self.avSpeechSynthesizer!.stopSpeaking(at: AVSpeechBoundary.immediate)
+        }
+    }
+    func pauseSpeech() {
+        if (self.avSpeechSynthesizer != nil) {
+            self.avSpeechSynthesizer!.pauseSpeaking(at: AVSpeechBoundary.immediate)
+        }
+    }
+    func resumeSpeech() {
+        if (self.avSpeechSynthesizer != nil) {
+            self.avSpeechSynthesizer!.continueSpeaking()
+        }
+    }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         print("didFinish")
     }

@@ -125,7 +125,9 @@ class SessionViewModel: ObservableObject {
             self.runner = nil
         }
     }
+    func start() {
     
+    }
     func play(){
         self.go()
     }
@@ -166,6 +168,8 @@ class SessionViewModel: ObservableObject {
             r.stop()
             self.runner = nil
             self.buttonState = ViewModelState.NotPlaying
+        } else {
+        
         }
         self.elapsed = 0.0; self.duration = 100.0
         if(self.currentExerciseIndex < self.exercises.count - 1) {
