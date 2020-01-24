@@ -31,13 +31,13 @@ class ResponderWindow: NSWindow {
             case 123: //left
                 // TODO
                 if let m = self.model {
-                    m.previous()
+                    m.previousButton()
                 }
                 return print("key left")
             case 124: //right
                 // TODO
                 if let m = self.model {
-                    m.next()
+                    m.nextButton()
                 }
                 return print("key right")
             default:

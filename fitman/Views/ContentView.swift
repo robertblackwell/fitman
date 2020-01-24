@@ -14,7 +14,7 @@ fileprivate let flag = false
 struct ContentView: View {
     
     @ObservedObject var controller: ExerciseController
-    @ObservedObject var model: SessionViewModel
+//    @ObservedObject var model: SessionViewModel
     @State var playPauseLabel: String = "Play"
 
     var body: some View {
@@ -22,15 +22,15 @@ struct ContentView: View {
 
         return VStack(alignment: HorizontalAlignment.center, spacing: 20)
         {
-            if ( (model.buttonState != ViewModelState.Playing)
-                && (model.buttonState != ViewModelState.Paused)) {
+            if ( (controller.model.buttonState != ViewModelState.Playing)
+                && (controller.model.buttonState != ViewModelState.Paused)) {
                 HStack(alignment: .center, spacing: 20)
                 {
                     Spacer()
                     DefaultsTopView(controller: controller,
                         sessionLabels: sessionLabels,
                         selectedExerciseSet: $controller.selectedSessionIndex,
-                        preludeDelay: $model.preludeDelayString //$someNumber
+                        preludeDelay: $controller.model.preludeDelayString //$someNumber
                         )
                     Spacer()
                 }
@@ -45,9 +45,10 @@ struct ContentView: View {
             ExDivider()
             HStack(alignment: .center, spacing: 20)
             {
-                ControlButtons(state: model, playPauseLabel: playPauseLabel)
+                ControlButtons(state: controller.model, playPauseLabel: playPauseLabel)
             }.padding(10)
-            RunBottomView(state: model, discFlag: flag)
+            RunBottomView(state: $controller.model, discFlag: flag)
+            Spacer()
         }.background(Color(.sRGB, white: 0.8, opacity: 1))
         
     }
@@ -71,8 +72,7 @@ struct ContentView_Previews: PreviewProvider {
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(
-            controller: exerciseController,
-            model: exerciseController.model
+            controller: exerciseController
             )
         
         return contentView

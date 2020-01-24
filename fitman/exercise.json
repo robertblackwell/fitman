@@ -1,7 +1,8 @@
 {
     "test1" :[
-       { "label": "T1 Door stretch", "duration": 30 },
-       { "label": "Wall stand", "duration": 20 }
+        { "label": "T1 Door stretch", "duration": 20 },
+        { "label": "Wall stand", "duration": 20 },
+        { "label": "T1 Door stretch", "duration": 20 }
     ],
     "test2" :[
         { "label": "T2 Door stretch", "duration": 30 },

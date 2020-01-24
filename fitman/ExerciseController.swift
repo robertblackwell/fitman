@@ -11,11 +11,15 @@ import Foundation
 import AVFoundation
 
 class ExerciseController: ObservableObject {
+
+    @Published var model: SessionViewModel {
+        didSet {
+            print("ExerciseController: changed model")
+        }
+    }
     // a convenience property holding the names of the available exercise sessions
     let exLabels: [String]
-
     var sessionDb: ExerciseSessionDatabase
-    let model: SessionViewModel
 
     var selectedSessionIndex: Int = 0 {
         didSet {
@@ -29,7 +33,7 @@ class ExerciseController: ObservableObject {
             print("ExerciseController::selectSessionKey didSet \(self.selectedSessionKey)")
             UserDefaults.standard.set(self.selectedSessionKey, forKey: UserDefaultKeys.sessionKey)
             let ex: ExerciseSession = self.sessionDb[self.selectedSessionKey]!
-            self.model.changeSession(exercises: ex)
+            self.model = SessionViewModel(exercises: ex)
         }
     }
     

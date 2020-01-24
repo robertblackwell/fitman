@@ -23,8 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(
-            controller: self.exerciseController!,
-            model: self.exerciseController!.model
+            controller: self.exerciseController!
+//            model: self.exerciseController!.model
             )
         
         // Create the window and set the content view. 

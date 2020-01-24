@@ -50,15 +50,22 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
             self.avSpeechSynthesizer!.speak(utterance)
         }
     }
-
+    func playSound(sound: String) {
+        DispatchQueue.global(qos: .background).async {
+            NSSound(named: sound)!.play()
+        }
+    }
     func playTinkSound() {
-        NSSound(named: "Tink")?.play()
+        playSound(sound: "Tink")
+//        NSSound(named: "Tink")?.play()
     }
     func playPurrSound() {
-        NSSound(named: "Purr")?.play()
+        playSound(sound: "Purr")
+//        NSSound(named: "Purr")?.play()
     }
     func playPopSound() {
-        NSSound(named: "Pop")?.play()
+        playSound(sound: "Pop")
+//        NSSound(named: "Pop")?.play()
     }
     func stopSpeech() {
         if (self.avSpeechSynthesizer != nil) {

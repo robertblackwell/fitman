@@ -11,92 +11,105 @@ enum PlayerState: String {
 // Creating another instance of this class for each new Exercise
 //
 class ExercisePlayer: Speaker {
-    var frequency: Double
-    var exercise: Exercise
-    var tasks: Array<Task>
-    public var onComplete: (()->())?
-    public var onProgressReport: ((Double, Double)->())?
-     var timer: Timer?
-    var pauseFlag: Bool
-    var runningFlag: Bool
+    var isPaused: Bool = false
+    var isRunning: Bool = false
     var announcementState = PlayerState.annoucementDone
+    var timer: Timer?
     
-    init(exercise: Exercise) {
-        self.pauseFlag = false
-        self.runningFlag = false
-        self.announcementState = PlayerState.annoucementDone
-        
-        self.frequency = 0.1
-        self.exercise = exercise
-        self.tasks = buildTasks(exercise: self.exercise)
-        super.init()
-    }
-    public func start(exercise: Exercise, frequency: Double, onProgress: ((Double, Double)->()), onComplete: (()->())  ) {
-    
-    }
-    public func go() {
-        self.announcementState = PlayerState.announcementRequired
-        self.doPerform()
+    public func start(
+        startPaused: Bool,
+        exercise: Exercise,
+        timerInterval: Double,
+        onProgress: @escaping ((Double, Double)->()),
+        onComplete: @escaping (()->())
+    ) {
+        self.perform(
+            startPaused: startPaused,
+            exercise: exercise,
+            timerInterval: timerInterval,
+            onProgress: onProgress,
+            onComplete: onComplete)
     }
     public func stop() {
-        if self.timer != nil && self.announcementState == PlayerState.annoucementPending {
+        if self.isRunning && self.announcementState == PlayerState.annoucementPending {
             self.stopSpeech()
         }
-        self.timer?.invalidate()
-        self.timer = nil
+        if let tmp = self.timer {
+            tmp.invalidate()
+        }
     }
-    public func togglePause() {
-        if (self.pauseFlag && self.announcementState == PlayerState.annoucementPending) {
-            self.resumeSpeech()
-        } else if (!self.pauseFlag && self.announcementState == PlayerState.annoucementPending) {
+    public func pause() {
+        assert(!self.isPaused)
+        if (!self.isPaused && self.announcementState == PlayerState.annoucementPending) {
             self.pauseSpeech()
         }
-        self.pauseFlag = !self.pauseFlag
+        self.isPaused = true
+
+    }
+    public func resume() {
+        assert(self.isPaused)
+        if (self.isPaused && self.announcementState == PlayerState.annoucementPending) {
+//            self.announcementState = PlayerState.announcementRequired
+            self.resumeSpeech()
+        }
+        self.isPaused = false
+
     }
     override func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        // note this may be executed not on the main thread
         DispatchQueue.main.async {
-            self.announcementState = PlayerState.annoucementDone
+            print("speech complete - on main thread \(self.isPaused)")
+            if (!self.isPaused && self.announcementState == PlayerState.annoucementPending) {
+                self.announcementState = PlayerState.annoucementDone
+            }
         }
     }
-    private func doPerform() {
+    private func perform(
+        startPaused: Bool,
+        exercise: Exercise,
+        timerInterval: Double,
+        onProgress: @escaping ((Double, Double)->()),
+        onComplete: @escaping (()->())
+     ) {
+
         var lastTime = NSDate().timeIntervalSince1970
         var elapsed = 0.0
-        let duration: Double = durationOfTasks(tasks: self.tasks)
-        self.runningFlag = true
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) {timer in
-            if self.pauseFlag {
+        var tasks: [Task] = buildTasks(exercise: exercise)
+        let duration: Double = durationOfTasks(tasks: tasks)
+        self.announcementState = PlayerState.announcementRequired
+        self.isRunning = true
+        self.isPaused = startPaused
+        self.timer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) {timer in
+            // updating lastTime in each of the following if statements
+            // ensures that time stands still while paused or an announcement is happening
+            if self.isPaused {
                 lastTime = NSDate().timeIntervalSince1970
                 return
             }
             if (self.announcementState == PlayerState.announcementRequired) {
                 self.announcementState = PlayerState.annoucementPending
-                self.announce(self.exercise)
+                self.announce(exercise)
+                lastTime = NSDate().timeIntervalSince1970
                 return
             }
             if (self.announcementState == PlayerState.annoucementPending) {
+                lastTime = NSDate().timeIntervalSince1970
                 return
             }
             let now = NSDate().timeIntervalSince1970
             elapsed = elapsed + (now - lastTime)
             lastTime = now
-            
-            self.tasks = attemptToPerformTask(tasks: self.tasks, elapsed: elapsed)
-
-            if let cbProgress = self.onProgressReport {
-                cbProgress(elapsed, duration)
+            // process all elapsed tasks
+            while (tasks.count > 0 && elapsed >= tasks[0].elapsed) {
+                let t: Task = tasks.removeFirst()
+                t.action(elapsed)
             }
 
+            onProgress(elapsed, duration)
+            // elapsed > duration - all tasks should have elapsed
             if (elapsed > duration) {
                 timer.invalidate()
-                self.timer = nil
-                self.runningFlag = false
-                if let cb = self.onComplete {
-                    cb()
-                    return
-                }else {
-                    return
-                }
+                self.isRunning = false
+                onComplete()
             }
         }
     }

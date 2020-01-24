@@ -38,7 +38,7 @@ struct ControlButtons: View {
     var body: some View {
         return HStack(alignment: .center, spacing: 20) {
             Button(action: {
-                self.state.previous()
+                self.state.previousButton()
             }) {
                 Text("Previous")
             }
@@ -48,7 +48,7 @@ struct ControlButtons: View {
                     Text(self.state.buttonLabel)
             }
             Button(action: {
-                self.state.next()
+                self.state.nextButton()
             }) {
                 Text("Next")
             }
@@ -78,7 +78,7 @@ extension Collection {
 
 struct CurrentPrevNextView: View {
     @ObservedObject var session: SessionViewModel
-    var current: Int
+    @Binding var current: Int
     
     var body: some View {
     

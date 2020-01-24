@@ -55,7 +55,7 @@ func buttonLabelFromState(state: ViewModelState) -> String {
 //
 class SessionViewModel: ObservableObject {
     var exercises: ExerciseSession
-    var runner: ExercisePlayer?
+    var runner: ExercisePlayer
     
     var preludeDelay: Int
     @Published var preludeDelayString: String {
@@ -69,8 +69,6 @@ class SessionViewModel: ObservableObject {
     }
 
     @Published var currentExerciseIndex: Int
-    @Published var isPaused: Bool
-    @Published var isRunning: Bool
     @Published var duration: Double
     @Published var elapsed: Double
     // The label on the play/pause button
@@ -90,9 +88,7 @@ class SessionViewModel: ObservableObject {
     public var onComplete: (()->())?
 
     init(exercises: ExerciseSession) {
-        // why is explicit initialization being done here and in changeSession ?
-        // Because Swift insists that all properties be initialized before
-        // I can call any methods. Hence the initialization has to happen twice.
+
         let tmp: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.preludeDelay)
         if (tmp <= 0) || (tmp >= 100) {
             self.preludeDelay = 10
@@ -100,81 +96,57 @@ class SessionViewModel: ObservableObject {
             self.preludeDelay = tmp
         }
         self.preludeDelayString = String(self.preludeDelay)
-//        print("preludeDelayString: \(self.preludeDelay)")
         self.currentExerciseIndex = 0
         self.exercises = exercises
-        self.isPaused = true
-        self.isRunning = false
         self.buttonState = ViewModelState.NotPlaying
         self.buttonLabel = buttonLabelFromState(state: self.buttonState)
         self.duration = 100.0
         self.elapsed = 0.0
+        self.runner = ExercisePlayer()
+
     }
-    func changeSession(exercises: ExerciseSession) {
-        print("SessionModel::changeSession")
-        self.currentExerciseIndex = 0
-        self.exercises = exercises
-        self.isPaused = true
-        self.isRunning = false
-        self.buttonState = ViewModelState.NotPlaying
-        self.buttonLabel = buttonLabelFromState(state: self.buttonState)
-        self.duration = 100.0
-        self.elapsed = 0.0
-        if let r = self.runner {
-            r.stop()
-            self.runner = nil
-        }
-    }
-    func start() {
-    
-    }
-    func play(){
-        self.go()
-    }
-    
-    // Start playing the exercise session. Start it in paused or running mode
-    // depending on the Boo argument
-    func go(paused: Bool = false) {
-        self.runner = ExercisePlayer(exercise: exercises[self.currentExerciseIndex])
-        self.runner!.onComplete = {
-            print("runner complete")
-            self.buttonState = ViewModelState.NotPlaying
-            self.next(byNextButton: false)
-        }
-        self.runner!.onProgressReport = { (a: Double, b: Double) in
-//            print("progress report \(a) \(b)")
-            self.duration = b
-            self.elapsed = a
-        }
-        if (paused) {
-            self.runner!.pauseFlag = true
-            self.runner!.go()
-            self.buttonState = ViewModelState.Paused
-            self.isPaused = self.runner!.pauseFlag
-        } else {
-            self.runner!.go()
-            self.buttonState = ViewModelState.Playing
-            self.isPaused = self.runner!.pauseFlag
-        }
-    }
-    // Move to the next exercise in the session.
-    // Called either because:
-    //  -   "Next" button was pressed in which case we want the playing to pause as well as move to the next
-    //  -   because we are moving through exercises and one has just finished in which case we do not want
-    //      playing to pause
     //
-    func next(byNextButton: Bool = true) {
-        if let r = self.runner {
-            r.stop()
-            self.runner = nil
-            self.buttonState = ViewModelState.NotPlaying
-        } else {
-        
-        }
+    // Start playing the exercise session. Start it in paused or running mode
+    // depending on the Bool argument
+    //
+    func go(paused: Bool = false) {
+        self.runner.start( startPaused: paused,
+            exercise: exercises[self.currentExerciseIndex],
+            timerInterval: 0.02,
+            onProgress: onProgress(elapsed: duration:),
+            onComplete: onRunnerComplete)
+        self.buttonState =  (paused) ? ViewModelState.Paused : ViewModelState.Playing
+    }
+    //
+    // next button pressed - cycle forward in the list of exercises in this exercise set - wrap around and arrive at next exercise paused
+    //
+    func nextButton() {
+        self.runner.stop()
+        self.buttonState = ViewModelState.NotPlaying
+        self.elapsed = 0.0; self.duration = 100.0
+        self.currentExerciseIndex = (self.currentExerciseIndex + 1) % self.exercises.count
+        self.go(paused: true)
+    }
+    //
+    // previous button pressed - cycle backwards in the list of exercises in this exercise set - wrap around and arrive at next exercise paused
+    //
+    func previousButton() {
+        self.runner.stop()
+        self.buttonState = ViewModelState.NotPlaying
+        self.elapsed = 0.0; self.duration = 100.0
+        self.currentExerciseIndex = (self.currentExerciseIndex + self.exercises.count - 1) % self.exercises.count
+        self.go(paused: true)
+    }
+    //
+    // progress to the next exercise or terminate after the last one. Do not pause
+    //
+    func next() {
+        self.runner.stop()
+        self.buttonState = ViewModelState.NotPlaying
         self.elapsed = 0.0; self.duration = 100.0
         if(self.currentExerciseIndex < self.exercises.count - 1) {
             self.currentExerciseIndex += 1
-            self.go(paused: byNextButton)
+            self.go(paused: false)
         } else {
             print("all exercises complete")
             self.buttonState = ViewModelState.NotPlaying
@@ -183,29 +155,35 @@ class SessionViewModel: ObservableObject {
             }
         }
     }
-    
-    func previous() {
-        if let r = self.runner {
-            r.stop()
-            self.runner = nil
-            self.buttonState = ViewModelState.NotPlaying
-        }
-        self.elapsed = 0.0; self.duration = 100.0
-        self.currentExerciseIndex = (self.currentExerciseIndex + self.exercises.count - 1) % self.exercises.count
-        self.go(paused: true)
-    }
+    //
+    // the play/pause button has been pushed
+    //
     func togglePause() {
-        if let r = self.runner {
-            if (!r.runningFlag) {
-                self.go()
-            } else {
-            
-            }
-            r.togglePause()
-            self.isPaused = r.pauseFlag
-            self.buttonState = (self.isPaused) ? ViewModelState.Paused : ViewModelState.Playing
-        } else {
-            self.go()
+        switch self.buttonState {
+            case ViewModelState.NotPlaying:
+                assert(self.buttonLabel == buttonLabelFromState(state: ViewModelState.NotPlaying))
+                self.buttonState = ViewModelState.Playing
+                self.go(paused: false)
+                break
+            case ViewModelState.Playing:
+                assert(self.buttonLabel == buttonLabelFromState(state: ViewModelState.Playing))
+                self.buttonState = ViewModelState.Paused
+                self.runner.pause()
+                break
+            case ViewModelState.Paused:
+                assert(self.buttonLabel == buttonLabelFromState(state: ViewModelState.Paused))
+                self.buttonState = ViewModelState.Playing
+                self.runner.resume()
+                break
         }
+    }
+    
+    func onProgress(elapsed: Double, duration: Double) {
+        self.elapsed = elapsed
+        self.duration = duration
+    }
+    func onRunnerComplete() {
+        self.next()
+
     }
 }

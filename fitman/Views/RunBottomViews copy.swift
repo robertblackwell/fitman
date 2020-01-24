@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RunBottomView: View {
-    @ObservedObject var state: SessionViewModel
+    @Binding var state: SessionViewModel
     var discFlag: Bool
 //    @State var playPauseLabel: String = "Play"
 
@@ -17,13 +17,13 @@ struct RunBottomView: View {
         let flag: Bool = self.discFlag
         return VStack(alignment: HorizontalAlignment.center, spacing: 0) {
             if (flag) {
-                CurrentPrevNextView(session: self.state, current: self.state.currentExerciseIndex)
+                CurrentPrevNextView(session: self.state, current: $state.currentExerciseIndex)
                 Spacer()
 
                 ZStack(alignment: .center) {
                     ProgressCircle(session: self.state, discFlag: flag)
                     if (!flag) {
-                        CurrentPrevNextView(session: self.state, current: self.state.currentExerciseIndex)
+                        CurrentPrevNextView(session: self.state, current: $state.currentExerciseIndex)
                     }
                 }
                 Spacer()
@@ -32,7 +32,7 @@ struct RunBottomView: View {
 
                 ZStack(alignment: .center) {
                     ProgressCircle(session: self.state, discFlag: flag)
-                    CurrentPrevNextView(session: self.state, current: self.state.currentExerciseIndex)
+                    CurrentPrevNextView(session: self.state, current: $state.currentExerciseIndex)
                 }
                 Spacer()
             }
