@@ -42,7 +42,9 @@ struct ContentView: View {
                     Spacer()
                 }
             }
+            #if CV_DIVIDE
             ExDivider()
+            #endif
             HStack(alignment: .center, spacing: 20)
             {
                 ControlButtons(state: controller.model, playPauseLabel: playPauseLabel)

@@ -9,67 +9,7 @@
 import SwiftUI
 
 fileprivate let flag: Bool = false
-struct LabelItem {
-    var label: String;
-    var id: Int;
-}
-fileprivate func mkLabels(exLabels: [String]) -> [LabelItem] {
-    var res: [LabelItem] = []
-    var ix: Int = 0
-    for label in exLabels {
-        let itm: LabelItem = LabelItem(label: label, id: ix)
-        res.append(itm)
-        ix += 1
-    }
-    return res
-}
-//
-// picks the exercise session to run.
-// Made into a separate View so that it is not updated by progress reporting
-//
-struct SessionPicker: View {
 
-    var controller: ExerciseController
-    var exLabels: [String]
-    @Binding var selectedExerciseSet: Int
-
-    var body: some View {
-        let ar: [LabelItem] = mkLabels(exLabels: self.exLabels)
-        return VStack(alignment: HorizontalAlignment.leading) {
-        
-            Picker(selection: $selectedExerciseSet, label: Text("Select Exercise Set from:")) {
-                ForEach(ar, id: \.id) { item in
-                    Text(item.label).tag(item.id)
-                }
-            }
-        }
-    }
-}
-
-struct ControlButtons: View {
-    @ObservedObject var state: SessionViewModel
-    @State var playPauseLabel: String = "Play"
-
-    var body: some View {
-        return HStack(alignment: .center, spacing: 20) {
-            Button(action: {
-                self.state.previousButton()
-            }) {
-                Text("Previous")
-            }
-            Button(action: {
-                self.state.togglePause()
-            }) {
-                    Text(self.state.buttonLabel)
-            }
-            Button(action: {
-                self.state.nextButton()
-            }) {
-                Text("Next")
-            }
-        }
-    }
-}
 
 struct ProgressBar: View {
 
@@ -88,24 +28,6 @@ extension Collection {
     /// Returns the element at the specified index if it is within bounds, otherwise nil.
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
-    }
-}
-
-struct CurrentPrevNextView: View {
-    @ObservedObject var session: SessionViewModel
-    @Binding var current: Int
-    
-    var body: some View {
-    
-//        let prev = session.exercises[safe: current-1]
-        let curr = session.exercises[safe: current]
-        let next = session.exercises[safe: current+1]
-        
-        return VStack(alignment: .center, spacing: 20) {
-//            Row(exercise: prev, isCurrent: false)
-            Row(exercise: curr, isCurrent: true)
-            Row(exercise: next, isCurrent: false)
-        }
     }
 }
 
@@ -128,37 +50,4 @@ struct SessionView: View {
         }
     }
     
-}
-
-struct Row: View {
-    var exercise: Exercise?
-    var isCurrent: Bool
-
-    var body: some View {
-        
-        let currColor = NSColor(named: NSColor.Name("currentExcerciseLabel"))
-        let nextColor = NSColor(named: NSColor.Name("nextExerciseLabel"))
-    
-        let fontSize: CGFloat = !isCurrent ? 40 : 60
-        let fontColor: Color = !isCurrent ? Color(nextColor!) : Color(currColor!)
-        let labelStr: String = (exercise != nil) ? exercise!.label : " "
-//        let durationStr: String = (exercise != nil) ? String(exercise!.duration) : " "
-        
-        return HStack(alignment: .center, spacing: 10) {
-            Spacer()
-            HStack(alignment: .bottom, spacing: 10, content: {
-                
-                Text("\(labelStr)")
-                    .font(.custom("Futura", size: fontSize))
-                    .foregroundColor(fontColor)
-                    
-                
-//                Text("\(durationStr)s")
-//                    .font(.custom("Futura", size: 13))
-//                    .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
-//                    .baselineOffset(8)
-            })
-            Spacer()
-        }
-    }
 }

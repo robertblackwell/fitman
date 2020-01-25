@@ -30,6 +30,9 @@
 		0EB1573123DBB3B000D04AFC /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1573023DBB3B000D04AFC /* SoundPlayer.swift */; };
 		0EB1573323DBB3EA00D04AFC /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1573223DBB3EA00D04AFC /* Sounds */; };
 		0EB1573623DBBCC700D04AFC /* DBG_TRACE.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1573523DBBCC700D04AFC /* DBG_TRACE.xcconfig */; };
+		0EB1575E23DC087800D04AFC /* SessionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1575D23DC087800D04AFC /* SessionPicker.swift */; };
+		0EB1576023DC08FE00D04AFC /* ControlButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1575F23DC08FE00D04AFC /* ControlButtonsView.swift */; };
+		0EB1576223DC09A600D04AFC /* CurrentNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1576123DC09A600D04AFC /* CurrentNextView.swift */; };
 		0ECF97FA23CB56A8004D708C /* ExercisePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F723CB56A8004D708C /* ExercisePlayer.swift */; };
 		0ECF97FB23CB56A8004D708C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F823CB56A8004D708C /* Exercise.swift */; };
 		0ECF97FC23CB56A8004D708C /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F923CB56A8004D708C /* SessionViewModel.swift */; };
@@ -87,6 +90,9 @@
 		0EB1573023DBB3B000D04AFC /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		0EB1573223DBB3EA00D04AFC /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		0EB1573523DBBCC700D04AFC /* DBG_TRACE.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DBG_TRACE.xcconfig; sourceTree = "<group>"; };
+		0EB1575D23DC087800D04AFC /* SessionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPicker.swift; sourceTree = "<group>"; };
+		0EB1575F23DC08FE00D04AFC /* ControlButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlButtonsView.swift; sourceTree = "<group>"; };
+		0EB1576123DC09A600D04AFC /* CurrentNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentNextView.swift; sourceTree = "<group>"; };
 		0ECF97F723CB56A8004D708C /* ExercisePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExercisePlayer.swift; sourceTree = "<group>"; };
 		0ECF97F823CB56A8004D708C /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0ECF97F923CB56A8004D708C /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
@@ -123,13 +129,16 @@
 		0E1088D423CD132700A9F2E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0E1088D523CD138200A9F2E2 /* ContentView.swift */,
-				0E1088DB23CD1FB400A9F2E2 /* DefaultsTopViews.swift */,
-				0ED697C123CFCFD400F0A2A6 /* RunTopView.swift */,
-				0E1088DC23CD1FB400A9F2E2 /* RunBottomViews copy.swift */,
-				0ED697C323CFD7C800F0A2A6 /* ProgressCircleView.swift */,
+				0EB1575F23DC08FE00D04AFC /* ControlButtonsView.swift */,
 				0E1088D723CD1E3600A9F2E2 /* ComponentViews.swift */,
+				0E1088D523CD138200A9F2E2 /* ContentView.swift */,
+				0EB1576123DC09A600D04AFC /* CurrentNextView.swift */,
+				0E1088DB23CD1FB400A9F2E2 /* DefaultsTopViews.swift */,
 				0E1088DF23CD23E900A9F2E2 /* NumberTextField.swift */,
+				0ED697C323CFD7C800F0A2A6 /* ProgressCircleView.swift */,
+				0E1088DC23CD1FB400A9F2E2 /* RunBottomViews copy.swift */,
+				0ED697C123CFCFD400F0A2A6 /* RunTopView.swift */,
+				0EB1575D23DC087800D04AFC /* SessionPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,6 +359,8 @@
 				0E0A4A0A23C605C9000134B1 /* ExerciseError.swift in Sources */,
 				0E52217623C59B0300479741 /* ExerciseController.swift in Sources */,
 				0E0A4A0623C5F4C7000134B1 /* ExerciseLoader.swift in Sources */,
+				0EB1576223DC09A600D04AFC /* CurrentNextView.swift in Sources */,
+				0EB1576023DC08FE00D04AFC /* ControlButtonsView.swift in Sources */,
 				0E1088E023CD23E900A9F2E2 /* NumberTextField.swift in Sources */,
 				0E4E1A4823DB4CFC00A81ACE /* Trace.swift in Sources */,
 				0ECF97FA23CB56A8004D708C /* ExercisePlayer.swift in Sources */,
@@ -365,6 +376,7 @@
 				0ECF97FC23CB56A8004D708C /* SessionViewModel.swift in Sources */,
 				0ED697C423CFD7C800F0A2A6 /* ProgressCircleView.swift in Sources */,
 				0E8EA7A123C50A5E00853440 /* AppDelegate.swift in Sources */,
+				0EB1575E23DC087800D04AFC /* SessionPicker.swift in Sources */,
 				0E1088DD23CD1FB400A9F2E2 /* DefaultsTopViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

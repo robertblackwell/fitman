@@ -23,13 +23,16 @@ struct DefaultsTopView: View {
         return VStack(alignment: HorizontalAlignment.center, spacing: 10) {
             HStack() {
                 SessionPicker(controller: self.controller, exLabels: sessionLabels, selectedExerciseSet: $selectedExerciseSet).padding(0)
+                #if DEFAULTS_LAYOUT
                 LayoutPicker()
+                #endif
             }
+            #if DEFAULTS_PRELUDE_DELAY
             HStack() {
                 NumberTextField(label: "Prelude Delay", someNumber: $preludeDelay).padding(0)
                 NumberTextField(label: "Dummy", someNumber: $preludeDelay).padding(0)
             }
-
+            #endif
         }.background(Color(.sRGB, white: 0.8, opacity: 1)).padding()
     }
 }
