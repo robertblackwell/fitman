@@ -32,9 +32,7 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         utterance.rate = 0.4
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.daniel.premium")
-//        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.Zarvox")
         DispatchQueue.global(qos: .background).async {
-            // Bren this worked to smooth out the progress display
             self.avSpeechSynthesizer!.speak(utterance)
         }
     }
@@ -46,7 +44,6 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.daniel.premium")
         DispatchQueue.global(qos: .background).async {
-            // Bren this worked to smooth out the progress display
             self.avSpeechSynthesizer!.speak(utterance)
         }
     }
@@ -55,7 +52,7 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
             #if USE_NSSOUND
                 NSSound(named: sound)!.play()
             #else
-                SoundPlayer.play(name: "\(sound).aiff")
+                SoundPlayer.shared().play(name: "\(sound).aiff")
             #endif
         }
     }

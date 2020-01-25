@@ -7,8 +7,22 @@
 //
 
 import SwiftUI
-fileprivate let flag: Bool = false
 
+fileprivate let flag: Bool = false
+struct LabelItem {
+    var label: String;
+    var id: Int;
+}
+fileprivate func mkLabels(exLabels: [String]) -> [LabelItem] {
+    var res: [LabelItem] = []
+    var ix: Int = 0
+    for label in exLabels {
+        let itm: LabelItem = LabelItem(label: label, id: ix)
+        res.append(itm)
+        ix += 1
+    }
+    return res
+}
 //
 // picks the exercise session to run.
 // Made into a separate View so that it is not updated by progress reporting
@@ -20,11 +34,12 @@ struct SessionPicker: View {
     @Binding var selectedExerciseSet: Int
 
     var body: some View {
+        let ar: [LabelItem] = mkLabels(exLabels: self.exLabels)
         return VStack(alignment: HorizontalAlignment.leading) {
         
             Picker(selection: $selectedExerciseSet, label: Text("Select Exercise Set from:")) {
-                ForEach(0 ..< exLabels.count) {
-                   Text(self.exLabels[$0]).tag($0)
+                ForEach(ar, id: \.id) { item in
+                    Text(item.label).tag(item.id)
                 }
             }
         }

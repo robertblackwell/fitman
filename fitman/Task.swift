@@ -92,7 +92,7 @@ func buildTasks(exercise: Exercise) -> Array<Task> {
     tasks.append(Task(elapsed: tmp, action: playProgressAnnoucement(text: "done")))
     var endTime: Double = exerciseStartElapsed + 10.0 * Double((exercise.duration))
     endTime = tasks.last!.elapsed
-    tasks.append(Task(elapsed: endTime + 2.95, action: playEndSound(elapsed:)))
+    tasks.append(Task(elapsed: endTime + 0.95, action: playEndSound(elapsed:)))
 
     // sort tasks - should be unnecessary
     tasks = tasks.sorted(by: { $0.elapsed < $1.elapsed })

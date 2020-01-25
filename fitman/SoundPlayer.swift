@@ -9,11 +9,17 @@
 import Foundation
 import AVFoundation
 
-class SoundPlayer {
-    public static var notificationSoundLookupTable = [String: SystemSoundID]()
+fileprivate let instance = SoundPlayer()
 
-    public static func play(name: String) {
-        if let soundID = notificationSoundLookupTable[name] {
+class SoundPlayer {
+    public static func shared() -> SoundPlayer {
+        return instance
+    }
+    // accumulated soundID so that the URL lookup result is cached.
+    public var soundCache = [String: SystemSoundID]()
+
+    public func play(name: String) {
+        if let soundID = self.soundCache[name] {
                AudioServicesPlaySystemSound(soundID)
         } else {
             if let soundPath = Bundle.main.path(forResource: "Sounds/\(name)", ofType: nil) {
@@ -22,7 +28,7 @@ class SoundPlayer {
                 let osStatus : OSStatus = AudioServicesCreateSystemSoundID(soundURL, &soundID)
                 if osStatus == kAudioServicesNoError {
                     AudioServicesPlayAlertSound(soundID);
-                    notificationSoundLookupTable[name] = (soundID)
+                    self.soundCache[name] = (soundID)
                 } else {
                     print("did not work")
                   // This happens in exceptional cases
@@ -31,8 +37,11 @@ class SoundPlayer {
            }
         }
     }
+    // SystemSoundID are 'C' pointers and must be deallocated after use.
+    // They are accumulated iin the LookupTable and deallocated when instance
+    // is garbage collected
     deinit {
-        for soundID in SoundPlayer.notificationSoundLookupTable.values {
+        for soundID in self.soundCache.values {
            AudioServicesDisposeSystemSoundID(soundID)
         }
     }

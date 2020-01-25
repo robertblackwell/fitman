@@ -45,12 +45,13 @@ struct LayoutPicker: View {
 
     var body: some View {
         return VStack(alignment: HorizontalAlignment.leading) {
-        
-            Picker(selection: $layoutIndex, label: Text("Select Layout: ")) {
-                ForEach(0 ..< layouts.count) {
-                   Text(layouts[$0]).tag($0)
-                }
-            }
+            Text("Dummy")
+//            Picker(selection: $layoutIndex, label: Text("Select Layout: ")) {
+//                ForEach(0 ..< layouts.count) {
+//
+//                   Text(layouts[$0]).tag($0)
+//                }
+//            }
         }
     }
 }

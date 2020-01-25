@@ -101,6 +101,7 @@ class ExercisePlayer: Speaker {
             // process all elapsed tasks
             while (tasks.count > 0 && elapsed >= tasks[0].elapsed) {
                 let t: Task = tasks.removeFirst()
+                Trace.writeln("Timer::action elapsed: \(elapsed)  \(t.elapsed)")
                 t.action(elapsed)
             }
 

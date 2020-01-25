@@ -14,11 +14,11 @@ fileprivate let flag = false
 struct ContentView: View {
     
     @ObservedObject var controller: ExerciseController
-//    @ObservedObject var model: SessionViewModel
+    let sessionLabels: Array<String>
     @State var playPauseLabel: String = "Play"
 
     var body: some View {
-        let sessionLabels: Array<String> = Array(self.controller.exLabels)
+//        let sessionLabels: Array<String> = Array(self.controller.exLabels)
 
         return VStack(alignment: HorizontalAlignment.center, spacing: 20)
         {
@@ -72,7 +72,7 @@ struct ContentView_Previews: PreviewProvider {
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(
-            controller: exerciseController
+            controller: exerciseController, sessionLabels: exerciseController.exLabels
             )
         
         return contentView

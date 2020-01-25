@@ -62,11 +62,13 @@ class SessionViewModel: ObservableObject {
     var preludeDelay: Int
     @Published var preludeDelayString: String {
         didSet {
+            Defaults.shared().preludeDelayString = self.preludeDelayString
+            self.preludeDelay = Defaults.shared().preludeDelay
             // this code is called when the preludeDelayString is changed by the view
-            if let tmp = NumberFormatter().number(from: self.preludeDelayString) {
-                self.preludeDelay = tmp.intValue
-                UserDefaults.standard.set(self.preludeDelay, forKey: UserDefaultKeys.preludeDelay)
-            }
+//            if let tmp = NumberFormatter().number(from: self.preludeDelayString) {
+//                self.preludeDelay = tmp.intValue
+//                UserDefaults.standard.set(self.preludeDelay, forKey: UserDefaultKeys.preludeDelay)
+//            }
         }
     }
 
@@ -86,17 +88,18 @@ class SessionViewModel: ObservableObject {
             Trace.writeln("buttonState: \(self.buttonState)")
         }
     }
-    public var progressCallback: ((Double, Double) ->())?
-    public var onComplete: (()->())?
+
+//    public var onComplete: (()->())?
 
     init(exercises: ExerciseSession) {
 
-        let tmp: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.preludeDelay)
-        if (tmp <= 0) || (tmp >= 100) {
-            self.preludeDelay = 10
-        } else {
-            self.preludeDelay = tmp
-        }
+//        let tmp: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.preludeDelay)
+//        if (tmp <= 0) || (tmp >= 100) {
+//            self.preludeDelay = 10
+//        } else {
+//            self.preludeDelay = tmp
+//        }
+        self.preludeDelay = Defaults.shared().preludeDelay
         self.preludeDelayString = String(self.preludeDelay)
         self.currentExerciseIndex = 0
         self.exercises = exercises
@@ -152,9 +155,9 @@ class SessionViewModel: ObservableObject {
         } else {
             Trace.writeln("all exercises complete")
             self.buttonState = ViewModelState.NotPlaying
-            if let cb = self.onComplete {
-                cb()
-            }
+//            if let cb = self.onComplete {
+//                cb()
+//            }
         }
     }
     //

@@ -29,14 +29,15 @@ class Defaults: ObservableObject {
     }
     var preludeDelayString: String {
         didSet {
-            if let tmp = NumberFormatter().number(from: self.preludeDelayString) {
+            let tmp: String = "\(self.preludeDelayString)"
+            if let tmp = NumberFormatter().number(from: tmp) {
                 self.preludeDelay = tmp.intValue
             }
         }
     }
     var preludeDelay: Int {
            didSet {
-               UserDefaults.standard.set(self, forKey: UserDefaultKeys.preludeDelay)
+               UserDefaults.standard.set(self.preludeDelay, forKey: UserDefaultKeys.preludeDelay)
            }
        }
 //    var layoutId: LayoutIds {

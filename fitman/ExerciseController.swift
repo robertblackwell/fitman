@@ -25,6 +25,10 @@ class ExerciseController: ObservableObject {
         didSet {
             // this code is called when the view selects a new session index
             Trace.writeln("ExerciseController::selectedSessionIndex didSet \(self.selectedSessionIndex)")
+            if (self.selectedSessionKey == self.exLabels[self.selectedSessionIndex]) {
+                // selectedSessionKey did not change
+                return
+            }
             self.selectedSessionKey = self.exLabels[self.selectedSessionIndex]
         }
     }

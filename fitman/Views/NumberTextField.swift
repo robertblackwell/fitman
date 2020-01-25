@@ -147,14 +147,15 @@ struct NumberTextField: View {
             Text(label)
             TextField(label, text: $someNumber, onEditingChanged: {
                 Trace.writeln("onEditChange \($0)")
-            }).onReceive(self.someNumber.publisher.last(), perform: { ch in
-                if(!self.someNumber.isNumber) {
-                    let fixit = self.someNumber.digits
-                    self.someNumber = fixit
-                }
-                Trace.writeln("textfield \(ch) \(self.someNumber)")
-                        
             })
+//            .onReceive(self.someNumber.publisher.last(), perform: { ch in
+//                if(!self.someNumber.isNumber) {
+//                    let fixit = self.someNumber.digits
+//                    self.someNumber = fixit
+//                }
+//                Trace.writeln("textfield \(ch) \(self.someNumber)")
+//                        
+//            })
         }
     }
 }
