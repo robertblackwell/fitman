@@ -124,27 +124,6 @@ struct DecimalIntView: View {
 }
 
 
-//struct NumberTextField: View {
-//    @Binding var someNumber: Int
-//    @State var displayText: String?
-//    var body: some View {
-//        var flag: Bool = false
-//        self.displayText = ""//\(self.someNumber)"
-//        return TextField("", text: self.displayText, onEditingChanged: {
-//            print("onEditChange \($0)")
-//            flag = $0
-//        }).onReceive(someNumber.publisher.last(), perform: { ch in
-//            if(!self.someNumber.isNumber) {
-//                let fixit = self.someNumber.digits
-//                self.someNumber = fixit
-//                buffer = fixit
-//            }
-//            print("textfield \(ch) \(buffer) \(self.someNumber) \(flag)")
-//
-//        })
-//    }
-//}
-
 class HackNumber: ObservableObject {
     @Published var intValue: Int
     @Published var displayText: String {
@@ -167,13 +146,13 @@ struct NumberTextField: View {
         return       HStack() {
             Text(label)
             TextField(label, text: $someNumber, onEditingChanged: {
-                print("onEditChange \($0)")
+                Trace.writeln("onEditChange \($0)")
             }).onReceive(self.someNumber.publisher.last(), perform: { ch in
                 if(!self.someNumber.isNumber) {
                     let fixit = self.someNumber.digits
                     self.someNumber = fixit
                 }
-                print("textfield \(ch) \(self.someNumber)")
+                Trace.writeln("textfield \(ch) \(self.someNumber)")
                         
             })
         }

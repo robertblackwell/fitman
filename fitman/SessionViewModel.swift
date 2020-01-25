@@ -6,6 +6,8 @@ import AVFoundation
 // https://stackoverflow.com/questions/59036863/add-publisher-behaviour-for-computed-property
 //
 
+fileprivate let traceLevel: Int = 2
+
 // The play/pause button should be
 //
 //  -   displaying "Play" when either an Exercise has not started playing or when an Exercise is Paused
@@ -74,14 +76,14 @@ class SessionViewModel: ObservableObject {
     // The label on the play/pause button
     @Published var buttonLabel: String {
         didSet {
-            print("buttonLabel: \(self.buttonLabel)")
+            Trace.writeln(traceLevel: traceLevel, "buttonLabel: \(self.buttonLabel)")
         }
     }
     var buttonState: ViewModelState {
         didSet {
             // this code is called when the view Play/Pause button state is changed by a view
             self.buttonLabel = buttonLabelFromState(state: self.buttonState)
-            print("buttonState: \(self.buttonState)")
+            Trace.writeln("buttonState: \(self.buttonState)")
         }
     }
     public var progressCallback: ((Double, Double) ->())?
@@ -148,7 +150,7 @@ class SessionViewModel: ObservableObject {
             self.currentExerciseIndex += 1
             self.go(paused: false)
         } else {
-            print("all exercises complete")
+            Trace.writeln("all exercises complete")
             self.buttonState = ViewModelState.NotPlaying
             if let cb = self.onComplete {
                 cb()

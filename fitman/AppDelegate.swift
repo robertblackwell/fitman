@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exerciseController: ExerciseController?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-    
+        Trace.globalLevel = 3
         self.exerciseController = ExerciseController()
         
         // Create the SwiftUI view that provides the window contents.

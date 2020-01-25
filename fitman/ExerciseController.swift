@@ -14,7 +14,7 @@ class ExerciseController: ObservableObject {
 
     @Published var model: SessionViewModel {
         didSet {
-            print("ExerciseController: changed model")
+            Trace.writeln("ExerciseController: changed model")
         }
     }
     // a convenience property holding the names of the available exercise sessions
@@ -24,13 +24,13 @@ class ExerciseController: ObservableObject {
     var selectedSessionIndex: Int = 0 {
         didSet {
             // this code is called when the view selects a new session index
-            print("ExerciseController::selectedSessionIndex didSet \(self.selectedSessionIndex)")
+            Trace.writeln("ExerciseController::selectedSessionIndex didSet \(self.selectedSessionIndex)")
             self.selectedSessionKey = self.exLabels[self.selectedSessionIndex]
         }
     }
     var selectedSessionKey: String {
         didSet {
-            print("ExerciseController::selectSessionKey didSet \(self.selectedSessionKey)")
+            Trace.writeln("ExerciseController::selectSessionKey didSet \(self.selectedSessionKey)")
             UserDefaults.standard.set(self.selectedSessionKey, forKey: UserDefaultKeys.sessionKey)
             let ex: ExerciseSession = self.sessionDb[self.selectedSessionKey]!
             self.model = SessionViewModel(exercises: ex)
@@ -47,7 +47,7 @@ class ExerciseController: ObservableObject {
             if let ix = self.exLabels.firstIndex(of: tmpKey) {
                 self.selectedSessionIndex = ix
             } else {
-                print ("Bad key in UserDefaults")
+                Trace.writeln ("Bad key in UserDefaults")
                 self.selectedSessionIndex = 0
                 self.selectedSessionKey = self.exLabels[0]
             }

@@ -22,7 +22,6 @@ func loadExerciseFile() -> ExerciseSessionDatabase {
     if let filepath = Bundle.main.path(forResource: "exercise", ofType: "json") {
         do {
             let contents = try String(contentsOfFile: filepath)
-//            print(contents)
             let data = Data(contents.utf8)
             let decoder = JSONDecoder()
             do {

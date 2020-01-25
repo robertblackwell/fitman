@@ -39,7 +39,7 @@ struct LayoutPicker: View {
 
     @State private var layoutIndex: Int = 0 {
         didSet {
-            print("layout chosen : \(layouts[layoutIndex])")
+            Trace.writeln("layout chosen : \(layouts[layoutIndex])")
         }
     }
 

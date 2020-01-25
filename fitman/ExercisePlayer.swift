@@ -57,7 +57,7 @@ class ExercisePlayer: Speaker {
     }
     override func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         DispatchQueue.main.async {
-            print("speech complete - on main thread \(self.isPaused)")
+            Trace.writeln("speech complete - on main thread \(self.isPaused)")
             if (!self.isPaused && self.announcementState == PlayerState.annoucementPending) {
                 self.announcementState = PlayerState.annoucementDone
             }

@@ -62,7 +62,7 @@ struct ProgressBar: View {
     
     var body: some View {
 //        var pdone: Double = self.state.elapsed / self.state.duration
-//        print("elapsed:: \($state.elapsed) duration::  \(self.state.duration)")
+//        Trace.writeln("elapsed:: \($state.elapsed) duration::  \(self.state.duration)")
         return Slider(value: $session.elapsed, in: 0.0...self.session.duration)
     }
 }

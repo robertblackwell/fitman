@@ -11,11 +11,11 @@ var assertionID: IOPMAssertionID = 0
 var sleepDisabled = false
 
 func disableScreenSleep(reason: String = "Disabling Screen Sleep") {
-//    print("PREVENTING SLEEP")
+    Trace.writeln("PREVENTING SLEEP")
     sleepDisabled =  IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep as CFString, IOPMAssertionLevel(kIOPMAssertionLevelOn), reason as CFString, &assertionID) == kIOReturnSuccess
 }
 func  enableScreenSleep() {
-//    print("ALLOWING SLEEP")
+    Trace.writeln("ALLOWING SLEEP")
     IOPMAssertionRelease(assertionID)
     sleepDisabled = false
 }

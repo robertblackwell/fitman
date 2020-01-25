@@ -18,11 +18,11 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         super.init()
 //        let speechVoices = AVSpeechSynthesisVoice.speechVoices()
 //        speechVoices.forEach { (voice) in
-//          print("**********************************")
-//          print("Voice identifier: \(voice.identifier)")
-//          print("Voice language: \(voice.language)")
-//          print("Voice name: \(voice.name)")
-//          print("Voice quality: \(voice.quality.rawValue)") // Compact: 1 ; Enhanced: 2
+//          Trace.writeln("**********************************")
+//          Trace.writeln("Voice identifier: \(voice.identifier)")
+//          Trace.writeln("Voice language: \(voice.language)")
+//          Trace.writeln("Voice name: \(voice.name)")
+//          Trace.writeln("Voice quality: \(voice.quality.rawValue)") // Compact: 1 ; Enhanced: 2
 //        }
     }
     func announce(_ exercise: Exercise) {
@@ -52,20 +52,21 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
     }
     func playSound(sound: String) {
         DispatchQueue.global(qos: .background).async {
-            NSSound(named: sound)!.play()
+            #if USE_NSSOUND
+                NSSound(named: sound)!.play()
+            #else
+                SoundPlayer.play(name: "\(sound).aiff")
+            #endif
         }
     }
     func playTinkSound() {
         playSound(sound: "Tink")
-//        NSSound(named: "Tink")?.play()
     }
     func playPurrSound() {
         playSound(sound: "Purr")
-//        NSSound(named: "Purr")?.play()
     }
     func playPopSound() {
         playSound(sound: "Pop")
-//        NSSound(named: "Pop")?.play()
     }
     func stopSpeech() {
         if (self.avSpeechSynthesizer != nil) {
@@ -83,7 +84,7 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        print("didFinish")
+        Trace.writeln("didFinish")
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
     }

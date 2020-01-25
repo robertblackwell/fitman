@@ -5,44 +5,44 @@ import AVFoundation
 func playStart(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.say("This is a long announcement describing an exercise toes and no toes")
-//    print("play start sound at \(elapsed)")
+    Trace.writeln("play start sound at \(elapsed)")
 }
 func playText(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.say("This is a long announcement describing an exercise toes and no toes")
-//    print("play start sound at \(elapsed)")
+    Trace.writeln("play start sound at \(elapsed)")
 }
 
 func playPop(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.playPopSound()
-//    print("play chime sound at \(elapsed)")
+    Trace.writeln("play chime sound at \(elapsed)")
 }
 func playTink(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.playTinkSound()
-//    print("play chime sound at \(elapsed)")
+    Trace.writeln("play chime sound at \(elapsed)")
 }
 func playPurr(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.playPurrSound()
-//    print("play chime sound at \(elapsed)")
+    Trace.writeln("play chime sound at \(elapsed)")
 }
 
 func playProgress(elapsed: Double) {
-//    print("speak progress at \(elapsed)")
+    Trace.writeln("speak progress at \(elapsed)")
 }
 
 func playEnd(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.playPurrSound()
-//    print("play end at \(elapsed)")
+    Trace.writeln("play end at \(elapsed)")
 }
 
 func playEndSound(elapsed: Double) {
     let speaker: Speaker = Speaker()
     speaker.playPurrSound()
-//    print("play end sound at \(elapsed)")
+    Trace.writeln("play end sound at \(elapsed)")
 }
 
 func playProgressAnnoucement(text: String)-> ((Double)->Void) {
@@ -59,7 +59,7 @@ func playText(text: String)-> ((Double)->Void) {
 }
 
 func onProgress(elapsed: Double) {
-//    print("progress at \(elapsed)")
+    Trace.writeln("progress at \(elapsed)")
 }
 
 func durationOfTasks(tasks: Array<Task>) -> Double {
@@ -122,7 +122,7 @@ func buildTasks() -> [Task] {
 func attemptToPerformTask(tasks: [Task], elapsed: Double) -> [Task]{
     
     var mutableTasks = tasks
-//    print("attemptToPerformTask elapsed: \(elapsed)")
+    Trace.writeln("attemptToPerformTask elapsed: \(elapsed)")
     if (mutableTasks.count > 0 && elapsed > mutableTasks[0].elapsed){
         let nextTask = mutableTasks.removeFirst()
         nextTask.action(nextTask.elapsed)

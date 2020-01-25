@@ -18,6 +18,7 @@
 		0E1088DE23CD1FB400A9F2E2 /* RunBottomViews copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1088DC23CD1FB400A9F2E2 /* RunBottomViews copy.swift */; };
 		0E1088E023CD23E900A9F2E2 /* NumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1088DF23CD23E900A9F2E2 /* NumberTextField.swift */; };
 		0E1088E223CDEE3800A9F2E2 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1088E123CDEE3800A9F2E2 /* Defaults.swift */; };
+		0E4E1A4823DB4CFC00A81ACE /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4E1A4723DB4CFC00A81ACE /* Trace.swift */; };
 		0E52217623C59B0300479741 /* ExerciseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E52217523C59B0300479741 /* ExerciseController.swift */; };
 		0E81D50623DA7A8F000D66FC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E81D50523DA7A8F000D66FC /* Task.swift */; };
 		0E8EA7A123C50A5E00853440 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8EA7A023C50A5E00853440 /* AppDelegate.swift */; };
@@ -26,6 +27,9 @@
 		0E8EA7AB23C50A6100853440 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E8EA7A923C50A6100853440 /* Main.storyboard */; };
 		0E8EA7B723C50A6100853440 /* fitmanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8EA7B623C50A6100853440 /* fitmanTests.swift */; };
 		0E8EA7C223C50A6100853440 /* fitmanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8EA7C123C50A6100853440 /* fitmanUITests.swift */; };
+		0EB1573123DBB3B000D04AFC /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1573023DBB3B000D04AFC /* SoundPlayer.swift */; };
+		0EB1573323DBB3EA00D04AFC /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1573223DBB3EA00D04AFC /* Sounds */; };
+		0EB1573623DBBCC700D04AFC /* DBG_TRACE.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1573523DBBCC700D04AFC /* DBG_TRACE.xcconfig */; };
 		0ECF97FA23CB56A8004D708C /* ExercisePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F723CB56A8004D708C /* ExercisePlayer.swift */; };
 		0ECF97FB23CB56A8004D708C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F823CB56A8004D708C /* Exercise.swift */; };
 		0ECF97FC23CB56A8004D708C /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF97F923CB56A8004D708C /* SessionViewModel.swift */; };
@@ -64,6 +68,7 @@
 		0E1088DC23CD1FB400A9F2E2 /* RunBottomViews copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RunBottomViews copy.swift"; sourceTree = "<group>"; };
 		0E1088DF23CD23E900A9F2E2 /* NumberTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTextField.swift; sourceTree = "<group>"; };
 		0E1088E123CDEE3800A9F2E2 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		0E4E1A4723DB4CFC00A81ACE /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		0E52217523C59B0300479741 /* ExerciseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseController.swift; sourceTree = "<group>"; };
 		0E81D50523DA7A8F000D66FC /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		0E8EA79D23C50A5E00853440 /* fitman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fitman.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +84,9 @@
 		0E8EA7BD23C50A6100853440 /* fitmanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fitmanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8EA7C123C50A6100853440 /* fitmanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fitmanUITests.swift; sourceTree = "<group>"; };
 		0E8EA7C323C50A6100853440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EB1573023DBB3B000D04AFC /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		0EB1573223DBB3EA00D04AFC /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		0EB1573523DBBCC700D04AFC /* DBG_TRACE.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DBG_TRACE.xcconfig; sourceTree = "<group>"; };
 		0ECF97F723CB56A8004D708C /* ExercisePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExercisePlayer.swift; sourceTree = "<group>"; };
 		0ECF97F823CB56A8004D708C /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0ECF97F923CB56A8004D708C /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
@@ -150,7 +158,10 @@
 		0E8EA79F23C50A5E00853440 /* fitman */ = {
 			isa = PBXGroup;
 			children = (
+				0EB1573523DBBCC700D04AFC /* DBG_TRACE.xcconfig */,
+				0EB1573223DBB3EA00D04AFC /* Sounds */,
 				0E0A4A0723C5FD5B000134B1 /* exercise.json */,
+				0E4E1A4723DB4CFC00A81ACE /* Trace.swift */,
 				0E81D50523DA7A8F000D66FC /* Task.swift */,
 				0E1088E123CDEE3800A9F2E2 /* Defaults.swift */,
 				0ECF97F823CB56A8004D708C /* Exercise.swift */,
@@ -164,6 +175,7 @@
 				0E0A4A0323C5F3C8000134B1 /* ExerciseModel.swift */,
 				0E0A4A0023C5F2AF000134B1 /* Speaker.swift */,
 				0E0A4A0B23C68138000134B1 /* Sleeper.swift */,
+				0EB1573023DBB3B000D04AFC /* SoundPlayer.swift */,
 				DA9C3D2D23C7F79800ACCE39 /* ResponderWindow.swift */,
 				0E1088D423CD132700A9F2E2 /* Views */,
 				0E8EA7A423C50A6100853440 /* Assets.xcassets */,
@@ -305,9 +317,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB1573323DBB3EA00D04AFC /* Sounds in Resources */,
 				0E8EA7AB23C50A6100853440 /* Main.storyboard in Resources */,
 				0E0A4A0823C5FD5B000134B1 /* exercise.json in Resources */,
 				0E8EA7A823C50A6100853440 /* Preview Assets.xcassets in Resources */,
+				0EB1573623DBBCC700D04AFC /* DBG_TRACE.xcconfig in Resources */,
 				0E8EA7A523C50A6100853440 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,10 +348,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E1088D623CD138200A9F2E2 /* ContentView.swift in Sources */,
+				0EB1573123DBB3B000D04AFC /* SoundPlayer.swift in Sources */,
 				0E0A4A0A23C605C9000134B1 /* ExerciseError.swift in Sources */,
 				0E52217623C59B0300479741 /* ExerciseController.swift in Sources */,
 				0E0A4A0623C5F4C7000134B1 /* ExerciseLoader.swift in Sources */,
 				0E1088E023CD23E900A9F2E2 /* NumberTextField.swift in Sources */,
+				0E4E1A4823DB4CFC00A81ACE /* Trace.swift in Sources */,
 				0ECF97FA23CB56A8004D708C /* ExercisePlayer.swift in Sources */,
 				DA9C3D2E23C7F79800ACCE39 /* ResponderWindow.swift in Sources */,
 				0E81D50623DA7A8F000D66FC /* Task.swift in Sources */,
@@ -529,8 +545,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brenwell.fitman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = TRACE;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
