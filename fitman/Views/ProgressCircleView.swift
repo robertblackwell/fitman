@@ -18,7 +18,7 @@ struct ProgressCircle: View {
         let flag: Bool = self.discFlag
         
         let width: CGFloat = (flag) ? 200.0 : 20.0
-        let frameWidth: CGFloat = (flag) ? 200.0 : 600.0
+        let frameWidth: CGFloat = (flag) ? 200.0 : 700.0
         
         let bgColor = NSColor(named: NSColor.Name("progressBarBg"))
         let barColor = (flag)

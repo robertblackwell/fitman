@@ -30,16 +30,16 @@ struct ContentView: View {
                     DefaultsTopView(controller: controller,
                         sessionLabels: sessionLabels,
                         selectedExerciseSet: $controller.selectedSessionIndex,
-                        preludeDelay: $controller.model.preludeDelayString //$someNumber
+                        preludeDelay: $controller.model.preludeDelayString 
                         )
-                    Spacer()
+//                    Spacer()
                 }
             } else {
                 HStack(alignment: .center, spacing: 20)
                 {
                     Spacer()
                     RunTopView(sessionName: "\(sessionLabels[self.controller.selectedSessionIndex])")
-                    Spacer()
+//                    Spacer()
                 }
             }
             #if CV_DIVIDE
