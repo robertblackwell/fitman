@@ -17,8 +17,8 @@ struct ProgressCircle: View {
     var body: some View {
         let flag: Bool = self.discFlag
         
-        let width: CGFloat = (flag) ? 200.0 : 20.0
-        let frameWidth: CGFloat = (flag) ? 200.0 : 700.0
+        let lineWidth: CGFloat = (flag) ? 200.0 : 20.0
+        let minWidthHeight: CGFloat = (flag) ? 200.0 : 500.0
         
         let bgColor = NSColor(named: NSColor.Name("progressBarBg"))
         let barColor = (flag)
@@ -28,16 +28,18 @@ struct ProgressCircle: View {
 //            ? NSColor(named: NSColor.Name("exerciseProgressBar"))
 //            : NSColor(named: NSColor.Name("countInProgressBar"))
         
-        return ZStack {
-            Circle()
-                .stroke(Color(bgColor!), lineWidth: width)
-                .frame(width: frameWidth)
-                .rotationEffect(Angle(degrees:-90))
-            Circle()
-                .trim(from: 0.0, to: CGFloat(session.elapsed / session.duration))
-                .stroke(Color(barColor!), lineWidth: width)
-                .frame(width: frameWidth)
-                .rotationEffect(Angle(degrees:-90))
+        return VStack() {
+            ZStack {
+                Circle()
+                    .stroke(Color(bgColor!), lineWidth: lineWidth)
+                    .frame(minWidth: minWidthHeight, minHeight: minWidthHeight)
+                    .rotationEffect(Angle(degrees:-90))
+                Circle()
+                    .trim(from: 0.0, to: CGFloat(session.elapsed / session.duration))
+                    .stroke(Color(barColor!), lineWidth: lineWidth)
+                    .frame(minWidth: minWidthHeight, minHeight: minWidthHeight )
+                    .rotationEffect(Angle(degrees:-90))
+            }.padding()
         }
     }
 }

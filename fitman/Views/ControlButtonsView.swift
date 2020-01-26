@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ControlButtons: View {
     @ObservedObject var state: SessionViewModel
-    @State var playPauseLabel: String = "Play"
     let arrowLeft = #imageLiteral(resourceName: "ArrowLeft")
     let arrowRight = #imageLiteral(resourceName: "ArrowRight")
     let playImage = #imageLiteral(resourceName: "PlayIcon")
@@ -32,7 +31,7 @@ struct ControlButtons: View {
 //                    .background(Color.white)
                 }
             }
-            .buttonStyle(PlainButtonStyle()).background(Color.yellow).cornerRadius(20)
+            .buttonStyle(PlainButtonStyle())//.background(Color.gray).cornerRadius(20)
             
             Button(action: {
                 self.state.togglePause()
@@ -45,7 +44,7 @@ struct ControlButtons: View {
 //                    .padding()
 //                    .background(Color.white)
             }
-            .buttonStyle(PlainButtonStyle()).background(Color.white).cornerRadius(20)
+            .buttonStyle(PlainButtonStyle())//.background(Color.gray).cornerRadius(20)
 
             Button(action: {
                 self.state.nextButton()
@@ -58,7 +57,7 @@ struct ControlButtons: View {
 //                    .padding()
 //                    .background(Color.white)
             }
-            .buttonStyle(PlainButtonStyle()).background(Color.yellow).cornerRadius(20)
+            .buttonStyle(PlainButtonStyle())//.background(Color.gray).cornerRadius(20)
 
         }
     }

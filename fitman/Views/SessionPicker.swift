@@ -34,13 +34,18 @@ struct SessionPicker: View {
 
     var body: some View {
         let ar: [LabelItem] = mkLabels(exLabels: self.exLabels)
-        return VStack(alignment: HorizontalAlignment.leading) {
-        
-            Picker(selection: $selectedExerciseSet, label: Text("Select Exercise Set from:")) {
-                ForEach(ar, id: \.id) { item in
-                    Text(item.label).tag(item.id)
+        return VStack(alignment: HorizontalAlignment.center, spacing: 20) {
+//            NavigationView {
+                Form {
+                    Section {
+                        Picker(selection: $selectedExerciseSet, label: Text("Select Exercise Session:").bold()) {
+                            ForEach(ar, id: \.id) { item in
+                                Text(item.label).tag(item.id)
+                            }
+                        }
+                    }
                 }
             }
-        }
+//        }
     }
 }

@@ -28,15 +28,15 @@ struct RunBottomView: View {
                 }
                 Spacer()
             } else {
-                Spacer()
+//                Spacer()
 
                 ZStack(alignment: .center) {
                     ProgressCircle(session: self.state, discFlag: flag)
                     CurrentPrevNextView(session: self.state, current: $state.currentExerciseIndex)
                 }
-                Spacer()
+                Spacer().background(Color.red)
             }
-        }.background(Color(.sRGB, white: 0.8, opacity: 1))
+        }//.background(Color.yellow)//.background(Color(.sRGB, white: 0.8, opacity: 1))
     }
 }
 

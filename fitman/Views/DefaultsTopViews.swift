@@ -20,9 +20,15 @@ struct DefaultsTopView: View {
     @Binding var selectedExerciseSet: Int
     @Binding var preludeDelay: String
     var body: some View {
-        return VStack(alignment: HorizontalAlignment.center, spacing: 10) {
+        return VStack(alignment: HorizontalAlignment.center, spacing: 30) {
             HStack() {
-                SessionPicker(controller: self.controller, exLabels: sessionLabels, selectedExerciseSet: $selectedExerciseSet).padding(0)
+//                Spacer()
+                SessionPicker(controller: self.controller, exLabels: sessionLabels, selectedExerciseSet: $selectedExerciseSet).frame(width:300).background(Color.green)
+                Spacer()
+                ControlButtons(state: controller.model).background(Color.yellow).frame(width:300)
+                Spacer()
+                Text("").frame(width:300).background(Color.pink)
+//                Spacer()
                 #if DEFAULTS_LAYOUT
                 LayoutPicker()
                 #endif
